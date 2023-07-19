@@ -74,6 +74,7 @@ pipeline{
                    QualityGateStatus(SonarQubecredentialsId)
                }
             }
+        }
         stage('Docker Image Build'){
          when { expression {  params.action == 'create' } }
             steps{
