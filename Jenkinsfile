@@ -62,6 +62,19 @@ pipeline{
                }
             }
         }
+         stage('Quality Gate Status Check : Sonarqube'){
+         when { expression {  params.action == 'create' } }
+            agent {
+                docker { image 'maven:3.8.3-adoptopenjdk-11' }
+            }        
+            steps{
+               script{
+                   
+                   def SonarQubecredentialsId = 'sonarqube-api'
+                   QualityGateStatus(SonarQubecredentialsId)
+               }
+            }
+        }       
 
 
 
