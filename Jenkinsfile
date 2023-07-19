@@ -62,7 +62,7 @@ pipeline{
                }
             }
         }
-         stage('Quality Gate Status Check : Sonarqube'){
+        stage('Quality Gate Status Check : Sonarqube'){
          when { expression {  params.action == 'create' } }
             agent {
                 docker { image 'maven:3.8.3-adoptopenjdk-11' }
@@ -74,7 +74,15 @@ pipeline{
                    QualityGateStatus(SonarQubecredentialsId)
                }
             }
-        }       
+        stage('Docker Image Build'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+               }
+            }
+        }
 
 
 
