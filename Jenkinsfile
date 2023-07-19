@@ -52,7 +52,7 @@ pipeline{
         stage('Static code analysis: Sonarqube'){
          when { expression {  params.action == 'create' } }
            agent {
-                docker { image 'maven:3.8.3-adoptopenjdk-8' }
+                docker { image 'maven:3.8.3-adoptopenjdk-11' }
             }         
             steps{
                script{
