@@ -13,6 +13,7 @@ pipeline{
         string(name: 'aws_account_id', description: " AWS Account ID", defaultValue: '319506457158')
         string(name: 'Region', description: "Region of ECR", defaultValue: 'us-west-2')
         string(name: 'ECR_REPO_NAME', description: "name of the ECR", defaultValue: 'vikashashoke')
+        string(name: 'REGISTRY_URL', description: "docker registory url", defaultValue: 'rietta/vikashashoke.hub.docker.com')
     }
 
     stages{
