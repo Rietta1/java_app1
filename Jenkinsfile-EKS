@@ -82,7 +82,7 @@ pipeline{
                   if(apply){
 
                     sh """
-                      /home/ubuntu/bin/kubectl apply -f . --context demo-cluster1
+                        kubectl apply -f deployment.yaml
                     """
                   }
                 }
