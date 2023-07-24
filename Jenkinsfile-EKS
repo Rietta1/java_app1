@@ -82,7 +82,7 @@ pipeline{
                   if(apply){
 
                     sh """
-                        kubectl apply -f deployment.yaml
+                        /home/ubuntu/bin/kubectl apply -f deployment.yaml
                     """
                   }
                 }
