@@ -67,6 +67,11 @@ pipeline{
         }
         stage('Deployment on EKS Cluster'){
             when { expression {  params.action == 'create' } }
+              agent {
+                    docker {
+                        image 'bitnami/kubectl:latest'
+                    }
+                }
             steps{
                 script{
                   
