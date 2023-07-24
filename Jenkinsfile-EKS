@@ -65,21 +65,6 @@ pipeline{
             }
         }
         }
-        stage('List pods') {
-            when { expression {  params.action == 'create' } } 
-            steps{
-                    script{
-
-                      sh """
-            
-                        curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
-                        chmod u+x ./kubectl
-                        ./kubectl get pods
-
-                      """
-                }
-            }
-        }
         stage('Deployment on EKS Cluster'){
             when { expression {  params.action == 'create' } }
             steps{
@@ -97,12 +82,27 @@ pipeline{
                   if(apply){
 
                     sh """
-                      kubectl apply -f .
+                      /home/ubuntu/bin/kubectl apply -f .
                     """
                   }
                 }
             }
-        }                   
+        }
+        stage('List pods') {
+            when { expression {  params.action == 'create' } } 
+            steps{
+                    script{
+
+                      sh """
+            
+                        curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"
+                        chmod u+x ./kubectl
+                        ./kubectl get pods
+
+                      """
+                }
+            }
+        }                           
    
 
 
