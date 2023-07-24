@@ -33,18 +33,8 @@ pipeline{
              }
 
         }
-        stage('Create EKS Cluster : Terraform') {
-            when {
-                expression { params.action == 'create' }
-            }
-            agent {
-                docker {
-                    // Specify the Docker image that contains Terraform and any other dependencies you need
-                    image 'hashicorp/terraform:latest'
-                    // Optionally mount any directories if required
-                    // volumes { hostPath('/host/path') => containerPath('/container/path') }
-                }
-            }
+        stage('Create EKS Cluster : Terraform'){
+            when { expression {  params.action == 'create' } }
             steps{
                 script{
 
@@ -59,8 +49,7 @@ pipeline{
                 }
             }
         }
-
-           
+                   
    
 
 
