@@ -102,7 +102,21 @@ pipeline{
                       """
                 }
             }
-        }                           
+        }
+        stage('cleanup') {
+            when { expression {  params.action == 'destroy' } } 
+            steps{
+                    script{
+
+                      sh """
+            
+                        kubectl delete deploy kubernetes-configmap-reload
+                        kubectl delete svc kubernetes-configmap-reload
+
+                      """
+                }
+            }
+        }                                   
    
 
 
