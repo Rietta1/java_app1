@@ -65,29 +65,29 @@ pipeline{
             }
         }
         }
-        stage('Deployment on EKS Cluster'){
-            when { expression {  params.action == 'create' } }
-            steps{
-                script{
+        // stage('Deployment on EKS Cluster'){
+        //     when { expression {  params.action == 'create' } }
+        //     steps{
+        //         script{
                   
-                  def apply = false
+        //           def apply = false
 
-                  try{
-                    input message: 'please confirm to deploy on eks', ok: 'Ready to apply the config ?'
-                    apply = true
-                  }catch(err){
-                    apply= false
-                    currentBuild.result  = 'UNSTABLE'
-                  }
-                  if(apply){
+        //           try{
+        //             input message: 'please confirm to deploy on eks', ok: 'Ready to apply the config ?'
+        //             apply = true
+        //           }catch(err){
+        //             apply= false
+        //             currentBuild.result  = 'UNSTABLE'
+        //           }
+        //           if(apply){
 
-                    sh """
-                        kubectl apply -f .
-                    """
-                  }
-                }
-            }
-        }
+        //             sh """
+        //                 kubectl apply -f .
+        //             """
+        //           }
+        //         }
+        //     }
+        // }
         stage('List pods') {
             when { expression {  params.action == 'create' } } 
             steps{
@@ -110,7 +110,8 @@ pipeline{
 
                       sh """
             
-                        kubectl delete -f deployment.yaml
+
+                        terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars
 
                       """
                 }
