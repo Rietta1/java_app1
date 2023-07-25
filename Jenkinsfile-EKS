@@ -110,8 +110,7 @@ pipeline{
 
                       sh """
             
-                        kubectl delete deploy kubernetes-configmap-reload
-                        kubectl delete svc kubernetes-configmap-reload
+                        kubectl delete -f deployment.yaml
 
                       """
                 }
